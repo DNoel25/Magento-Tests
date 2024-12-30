@@ -1,0 +1,58 @@
+import pytest
+from selenium import webdriver
+from Pages.Magento_Admin.Sales.Orders.order_process_page import OrderProcess
+import time
+from selenium.webdriver.chrome.service import Service
+from Pages.sidebar_page import SideNavigationPage
+
+@pytest.fixture(scope="module")
+def driver():
+    driver_path = r"C:\Users\neosolax\Downloads\chromedriver-win64 (2)\chromedriver-win64\chromedriver.exe"
+    service = Service(driver_path)
+    driver = webdriver.Chrome(service=service)
+    driver.get("https://uatnew.bonz.com/BonzGroupAdmin/admin/")
+    driver.maximize_window()
+    yield driver
+    driver.quit()
+
+def test_logged_in_user_flow(driver):
+    magento = OrderProcess(driver)
+    magento.login_successfully("neosolax", "^3Fp2Z&Vx7!wQ@Lm1")  # Replace with test credentials
+    print("Successfully navigate to the Dashboard ")
+    #close  the notifications if appears in the Dashboard
+    magento.close_notifications()
+    magento.test_home_page()
+
+def test_redirection_to_products(driver):
+    side_nav = SideNavigationPage(driver)
+    side_nav.open_sales_menu()
+    side_nav.open_orders()
+    time.sleep(2)
+
+# def test_simple_product(driver):
+#     magento = CreateProducts(driver)
+#     magento.nav_to_addnew_simple_product()
+#
+#     #fill the details
+#     magento.fill_mandatory_fields_simple("testAutomationSimple", "testAutomationSimple","222", "5" )
+#     magento.save_product_simple()
+#     time.sleep(5)
+#
+# def test_config_product(driver):
+#     magento = CreateProducts(driver)
+#     magento.nav_to_addnew_config_product()
+#     magento.fill_configurable_product_fields("testAutomationConfig", "testAutomationConfig", "999")
+#     magento.add_configurations(
+#         attributes=["93", "173"],  # Replace with actual attributes
+#         attribute_values={
+#             "size": ["XL", "L", "XS"],
+#             "color": ["Red", "Blue", "Green"]
+#         }
+#     )
+#     magento.save_product_config()
+
+
+
+
+
+
