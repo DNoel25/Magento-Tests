@@ -204,7 +204,83 @@ class OrderProcess:
             print(f"Error while submitting the order: {e}")
 #
     def go_to_invoice(self):
+        try:
             invoice = WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable((By.ID, 'order_invoice'))
             )
             invoice.click()
+        except Exception as e:
+            print(f"Error while submitting the invoice: {e}")
+
+    def submit_invoice(self):
+        try:
+            submit_invoice = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@title="Submit Invoice" and @class="action-default scalable save submit-button primary"]'))
+            )
+
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",submit_invoice)
+
+            submit_invoice.click()
+            print("Submitted the invoice successfully.")
+            time.sleep(3)
+        except Exception as e:
+            print(f"Error while submitting the invoice: {e}")
+
+
+    def go_to_ship(self):
+        try:
+            invoice = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.ID, 'order_ship'))
+            )
+            invoice.click()
+        except Exception as e:
+            print(f"Error while submitting the shipping: {e}")
+
+    def submit_shipping(self):
+        try:
+            submit_shipment = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@title="Submit Shipment" and @class="action-default scalable save submit-button primary"]'))
+            )
+
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",submit_shipment)
+
+            submit_shipment.click()
+            print("Submitted the shipment successfully.")
+            time.sleep(3)
+        except Exception as e:
+            print(f"Error while submitting the shipment: {e}")
+
+    def go_to_creditmemo(self):
+        try:
+            invoice = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.ID, 'order_creditmemo'))
+            )
+            invoice.click()
+        except Exception as e:
+            print(f"Error while submitting the credit memo: {e}")
+
+    def submit_creditmemo(self):
+        try:
+            submit_creditmemo = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@title="Refund Offline" and @class="action-default scalable save submit-button primary"]'))
+            )
+
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",submit_creditmemo)
+
+            submit_creditmemo.click()
+            print("Submitted the credit memo successfully.")
+            time.sleep(3)
+        except Exception as e:
+            print(f"Error while submitting the credit memo: {e}")
+
+    def make_re_order(self):
+        try:
+            invoice = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.ID, 'order_reorder'))
+            )
+            invoice.click()
+            self.submit_order()
+            print("Re order successfully.")
+        except Exception as e:
+            print(f"Error while submitting the order reorder: {e}")
+
