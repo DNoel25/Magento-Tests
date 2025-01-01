@@ -69,9 +69,32 @@ def test_invoicing(driver):
     print("Invoicing the order..")
     magento = OrderProcess(driver)
     magento.go_to_invoice()
+    magento.submit_invoice()
+    time.sleep(5)
+
+def test_shipping(driver):
+    print(" ")
+    print("Shipping the order..")
+    magento = OrderProcess(driver)
+    magento.go_to_ship()
+    magento.submit_shipping()
+    time.sleep(5)
 
 
+def test_creditmemo(driver):
+    print(" ")
+    print("Testing credit memo for the order..")
+    magento = OrderProcess(driver)
+    magento.go_to_creditmemo()
+    magento.submit_creditmemo()
+    time.sleep(5)
 
+def test_re_order(driver):
+    print(" ")
+    print("Testing re order..")
+    magento = OrderProcess(driver)
+    magento.make_re_order()
+    time.sleep(5)
 
 
 
