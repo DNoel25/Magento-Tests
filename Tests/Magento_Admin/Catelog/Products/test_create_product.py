@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-
+from Pages.Magento_Admin.Catelog.Products.create_product_page import CreateProducts
 import time
 from selenium.webdriver.chrome.service import Service
 from Pages.sidebar_page import SideNavigationPage

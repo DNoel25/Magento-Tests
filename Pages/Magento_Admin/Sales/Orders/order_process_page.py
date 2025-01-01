@@ -1,14 +1,17 @@
 import time
-
 from selenium.common import TimeoutException, NoSuchElementException, ElementClickInterceptedException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class OrderProcess:
     def __init__(self, driver):
+        # self.wait = None
+        # self.driver = driver
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, 10)
 
     def redirect_to_login_page(self):
         self.driver.get("https://uatnew.bonz.com/BonzGroupAdmin/admin/")
@@ -42,203 +45,166 @@ class OrderProcess:
         except TimeoutException:
             print("No blocking notifications appeared.")
 
-# Creating a simple product
-    def nav_to_addnew_simple_product(self):
-        # Click the arrow or button to open the dropdown
-        arrow = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="add_new_product"]/button[2]'))
+# Placing an order
+    def nav_to_new_order(self, email):
+        create_order = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="add" and @title="Create New Order"]'))
         )
-        arrow.click()
+        create_order.click()
+        print("Successfully redirected to new orders form")
 
-        try:
-            # Wait for the dropdown menu to be visible
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located((By.CLASS_NAME, "dropdown-menu"))
-            )
-            # Click the "Simple Product" option
-            simple_product_option = self.driver.find_element(By.XPATH, "//span[@title='Simple Product']")
-            simple_product_option.click()
-            print("Selected 'Simple Product'.")
-        except Exception as e:
-            print(f"Error selecting 'Simple Product': {e}")
-
-    # Method to fill mandatory fields
-    def fill_mandatory_fields_simple(self, product_name, sku, price, quantity):
-        try:
-            # Wait for and fill 'Product Name'
-            product_name_field = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located((By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[name]']"))
-            )
-            product_name_field.clear()
-            product_name_field.send_keys(product_name)
-
-            # Fill 'SKU'
-            sku_field = self.driver.find_element(*(By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[sku]']"))
-            sku_field.clear()
-            sku_field.send_keys(sku)
-
-            # Fill 'Price'
-            price_field = self.driver.find_element(*(By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[price]']"))
-            price_field.clear()
-            price_field.send_keys(price)
-
-            # Fill 'Quantity'
-            quantity_field = self.driver.find_element(*(By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[quantity_and_stock_status][qty]']"))
-            quantity_field.clear()
-            quantity_field.send_keys(quantity)
-
-            print("Mandatory fields filled successfully.")
-        except Exception as e:
-            print(f"Error while filling mandatory fields: {e}")
-
-    # Method to save the product
-    def save_product_simple(self):
-        try:
-            save_button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[@data-ui-id='save-button']"))
-            )
-            save_button.click()
-            print("Product saved successfully.")
-            back = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[@id='back']"))
-            )
-            back.click()
-            time.sleep(2)
-        except Exception as e:
-            print(f"Error while saving the product: {e}")
-
-#Creating a configurable product
-    def nav_to_addnew_config_product(self):
-        # Click the arrow or button to open the dropdown
-        arrow = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="add_new_product"]/button[2]'))
+        print("Selecting the customer..")
+        search_in_email = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="sales_order_create_customer_grid_filter_email" and @data-ui-id="widget-grid-column-filter-text-2-filter-email"]'))
         )
-        arrow.click()
+        search_in_email.clear()
+        search_in_email.send_keys(email)
 
+        first_row_locator = (By.CSS_SELECTOR, "table tbody tr:first-child")
+        # Wait for the first row to be clickable and click it
+        first_row = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(first_row_locator)
+        )
+        first_row.click()
+        time.sleep(5)
+        print("Successfully selected the current user by email")
+
+        print("Selecting the store view..")
+        store_view = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="store_1" and @class="admin__control-radio"]'))
+        )
+
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", store_view)
+
+        store_view.click()
+
+        print("Successfully redirected to add new order form..")
+
+    def add_products(self, sku):
+
+        time.sleep(2)
         try:
-            # Wait for the dropdown menu to be visible
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located((By.CLASS_NAME, "dropdown-menu"))
+            add_product = WebDriverWait(self.driver, 20).until(
+                EC.element_to_be_clickable((By.ID, 'add_products'))
             )
-            # Click the "Simple Product" option
-            simple_product_option = self.driver.find_element(By.XPATH, "//span[@title='Configurable Product']")
-            simple_product_option.click()
-            print("Selected 'Configurable Product'.")
-        except Exception as e:
-            print(f"Error selecting 'Configurable Product': {e}")
-
-    # Method to fill mandatory fields
-    def fill_configurable_product_fields(self, product_name, sku, price):
-        try:
-            # Wait for and fill 'Product Name'
-            product_name_field = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located((By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[name]']"))
-            )
-            product_name_field.clear()
-            product_name_field.send_keys(product_name)
-
-            # Fill 'SKU'
-            sku_field = self.driver.find_element(*(By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[sku]']"))
-            sku_field.clear()
-            sku_field.send_keys(sku)
-
-            # Fill 'Price'
-            price_field = self.driver.find_element(*(By.XPATH, "//input[@type='text' and @class='admin__control-text' and @name='product[price]']"))
-            price_field.clear()
-            price_field.send_keys(price)
-
-            print("Configurable product fields filled successfully.")
-        except Exception as e:
-            print(f"Error while filling configurable product fields: {e}")
-
-    def add_configurations(self, attributes, attribute_values):
-        try:
-            # Click 'Add Configurations' button
-            add_config_button = WebDriverWait(self.driver, 20).until(
-                EC.element_to_be_clickable(
-                    (By.XPATH, '//*[@id="container"]/div/div[2]/div[4]/div[2]/fieldset/div[1]/div[1]/button/span'))
-            )
-            self.driver.execute_script("arguments[0].click();", add_config_button)
-            print("Clicked on 'Add Configurations' button.")
-
-            # Scroll to ensure elements are in view
-            self.driver.execute_script("window.scrollBy(0, 500);")
-
-            # Select attributes
-            for attribute in attributes:
-                try:
-                    print(f"Attempting to select attribute: {attribute}")
-                    attribute_checkbox = WebDriverWait(self.driver, 20).until(
-                        EC.element_to_be_clickable((By.XPATH, f"//input[@type='checkbox' and @value='{attribute}']"))
-                    )
-                    self.driver.execute_script("arguments[0].scrollIntoView(true);", attribute_checkbox)
-                    if not attribute_checkbox.is_selected():
-                        attribute_checkbox.click()
-                    print(f"Selected attribute: {attribute}")
-                    time.sleep(2)
-                except Exception as e:
-                    print(f"Failed to select attribute {attribute}: {e}")
-                    continue
-
-            # Click 'Next'
-            next_button = WebDriverWait(self.driver, 20).until(
-                EC.element_to_be_clickable(
-                    (By.XPATH, '//button[@class="action-default action-primary action-next-step"]'))
-            )
-            next_button.click()
-            print("Clicked on 'Next'.")
-
-            # Fill attribute values
-            for attribute, values in attribute_values.items():
-                for value in values:
-                    try:
-                        print(f"Attempting to select value: {value}")
-                        # Update XPath to use data-attribute-option-title
-                        value_checkbox = WebDriverWait(self.driver, 20).until(
-                            EC.element_to_be_clickable((By.XPATH, f"//li[@data-attribute-option-title='{value}']"))
-                        )
-                        self.driver.execute_script("arguments[0].scrollIntoView(true);", value_checkbox)
-                        # Click the checkbox only if it's not already selected
-                        if not value_checkbox.is_selected():
-                            value_checkbox.click()
-                            print(f"Selected value: {value}")
-                        else:
-                            print(f"Value {value} is already selected.")
-                    except Exception as e:
-                        print(f"Error selecting value {value}: {e}")
-
-            # Click 'Next' again
-            next_button.click()
-            print("Clicked 'Next' again.")
-
-            # Click 'Next' again
-            next_button.click()
-            print("Clicked 'Next' again.")
-
-
-            gen_product = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "/html/body/div[7]/aside[14]/div[2]/div/div/div/div/div[2]/div/div[3]/button"))
-            )
-
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", add_product)
+            add_product.click()
             time.sleep(2)
-            # Click 'Next' again
-            gen_product.click()
-            print("Clicked 'Generate Products'.")
 
-            print("Configurations added successfully.")
-        except Exception as e:
-            print(f"Error while adding configurations: {e}")
+            sku_element = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.ID, 'sales_order_create_search_grid_filter_sku'))
+            )
+            sku_element.clear()
+            sku_element.send_keys(sku)
+            sku_element.send_keys(Keys.RETURN)
+            time.sleep(2)
 
-    # Method to save the product
-    def save_product_config(self):
-        print("1")
+            checkbox = WebDriverWait(self.driver, 20).until(
+                EC.element_to_be_clickable((By.ID, 'id_4672'))
+            )
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", checkbox)
+            checkbox.click()
+            time.sleep(2)
+
+            add_selected = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//button[@title="Add Selected Product(s) to Order" and contains(@class, "action-add")]'))
+            )
+            # self.driver.execute_script("window.scrollBy(0, 0);")
+            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", add_selected)
+            add_selected.click()
+            time.sleep(2)
+        except TimeoutException:
+            print("Can not find the elements")
+        except ElementClickInterceptedException:
+            print("An element is giving overlay to the clickable element")
+
+    # Locators
+    FIRST_NAME = (By.ID, "order-billing_address_firstname")  # Replace with actual locator
+    LAST_NAME = (By.ID, "order-billing_address_lastname")  # Replace with actual locator
+    STREET_ADDRESS = (By.ID, "order-billing_address_street0")  # Replace with actual locator
+    # COUNTRY = (By.ID, "country")  # Replace with actual locator
+    CITY = (By.ID, "order-billing_address_city")  # Replace with actual locator
+    ZIP_CODE = (By.ID, "order-billing_address_postcode")  # Replace with actual locator
+    PHONE_NUMBER = (By.ID, "order-billing_address_telephone")  # Replace with actual locator
+
+    def fill_if_empty(self, locator, value, field_name):
+        element = self.wait.until(EC.presence_of_element_located(locator))
+        if element.get_attribute("value").strip() == "":
+            element.clear()
+            element.send_keys(value)
+        else:
+            print(f"{field_name} is already filled with the value.")
+
+    def fill_mandatory_fields(self, first_name, last_name, street_address, city, zip_code, phone_number):
+
+        self.fill_if_empty(self.FIRST_NAME, first_name, "first_name")
+        self.fill_if_empty(self.LAST_NAME, last_name, "last_name")
+        self.fill_if_empty(self.STREET_ADDRESS, street_address, "street_address")
+        self.fill_if_empty(self.CITY, city, "city")
+        self.fill_if_empty(self.ZIP_CODE, zip_code, "zip_code")
+        self.fill_if_empty(self.PHONE_NUMBER, phone_number, "phone_number")
         time.sleep(4)
+
+    def selecting_payment_or_shipping(self):
+        """
+                Select the 'Cash on Delivery' payment method if not already selected.
+        """
+        print("Locating the payment method section...")
+        self.wait.until(EC.presence_of_element_located((By.ID, "order-billing_method")))
+
+        print("Checking 'Cash on Delivery' payment method...")
+        cod_radio_button = self.wait.until(EC.presence_of_element_located((By.ID, "p_method_cashondelivery")))
+
+        if cod_radio_button.get_attribute("checked") == "true":
+            print("'Cash on Delivery' is already selected.")
+        else:
+            print("Selecting 'Cash on Delivery' payment method...")
+            # Click the label to select the payment method
+            self.driver.find_element(*By.XPATH, "//label[@for='p_method_cashondelivery']").click()
+            print("'Cash on Delivery' has been selected.")
+
+        """
+                Click the 'Get Shipping Methods and Rates' link.
+        """
+        print("Clicking the 'Get Shipping Methods and Rates' link...")
+        get_shipping_link = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@class='action-default']/span[text()='Get shipping methods and rates']")))
+        get_shipping_link.click()
+
+        """
+                Select the first available shipping method.
+        """
+        print("Selecting the first available shipping method...")
+        shipping_option = self.wait.until(EC.presence_of_element_located((By.XPATH, "//input[@type='radio' and @name='order[shipping_method]']")))
+        shipping_option.click()
+        label = self.driver.find_element(*(By.XPATH, "//input[@type='radio' and @name='order[shipping_method]']/following-sibling::label"))
+        print(f"Selected shipping method: {label.text.strip()}")
+
+    #Method to save the product
+    def submit_order(self):
         try:
-            save_button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[@id='save-button' and @title='Save']"))
+            # Wait for the loading mask to disappear
+            WebDriverWait(self.driver, 10).until(
+                EC.invisibility_of_element_located((By.CSS_SELECTOR, "div.loading-mask"))
             )
-            save_button.click()
-            time.sleep(5)
-            print("Product saved successfully.")
+
+            # Wait for the submit button to be clickable
+            submit_button = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable(
+                    (By.XPATH, "//button[@id='submit_order_top_button' and @title='Submit Order']"))
+            )
+
+            # Scroll to the button (if necessary)
+            self.driver.execute_script("window.scrollBy(0, 0);")
+
+            # Click the submit button
+            submit_button.click()
+            print("Submitted the order successfully.")
+            time.sleep(2)
         except Exception as e:
-            print(f"Error while saving the product: {e}")
+            print(f"Error while submitting the order: {e}")
+#
+    def go_to_invoice(self):
+            invoice = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.ID, 'order_invoice'))
+            )
+            invoice.click()

@@ -1,5 +1,7 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+
 from Pages.Magento_Admin.Sales.Orders.order_process_page import OrderProcess
 import time
 from selenium.webdriver.chrome.service import Service
@@ -29,27 +31,47 @@ def test_redirection_to_products(driver):
     side_nav.open_orders()
     time.sleep(2)
 
-# def test_simple_product(driver):
-#     magento = CreateProducts(driver)
-#     magento.nav_to_addnew_simple_product()
-#
-#     #fill the details
-#     magento.fill_mandatory_fields_simple("testAutomationSimple", "testAutomationSimple","222", "5" )
-#     magento.save_product_simple()
-#     time.sleep(5)
-#
-# def test_config_product(driver):
-#     magento = CreateProducts(driver)
-#     magento.nav_to_addnew_config_product()
-#     magento.fill_configurable_product_fields("testAutomationConfig", "testAutomationConfig", "999")
-#     magento.add_configurations(
-#         attributes=["93", "173"],  # Replace with actual attributes
-#         attribute_values={
-#             "size": ["XL", "L", "XS"],
-#             "color": ["Red", "Blue", "Green"]
-#         }
-#     )
-#     magento.save_product_config()
+def test_redirection_to_new_orders(driver):
+    magento = OrderProcess(driver)
+    magento.nav_to_new_order("d.noel251299@gmail.com")
+
+def test_add_product(driver):
+    print(" ")
+    print("adding a product to the order..")
+    magento = OrderProcess(driver)
+    magento.add_products("testAutomationSimple")
+
+    #fill the details
+def test_fill_mandatory(driver):
+    print(" ")
+    print("Filling the empty fields..")
+    magento = OrderProcess(driver)
+    magento.fill_mandatory_fields("NoelAutomation", "DurairajAutomation","testAddressAutomation", "testCityAutomation", "testZipAutomation", "testPNumberAutomation" )
+    # magento.save_product_simple()
+    time.sleep(5)
+
+def test_payment_or_shipping_method(driver):
+    print(" ")
+    print("Selecting the payment method and shipping method..")
+    magento = OrderProcess(driver)
+    magento.selecting_payment_or_shipping()
+
+def test_submit_order(driver):
+    print(" ")
+    print("Submitting the order..")
+    magento = OrderProcess(driver)
+    magento.submit_order()
+
+#Starting the post order testing
+
+def test_invoicing(driver):
+    print(" ")
+    print("Invoicing the order..")
+    magento = OrderProcess(driver)
+    magento.go_to_invoice()
+
+
+
 
 
 
