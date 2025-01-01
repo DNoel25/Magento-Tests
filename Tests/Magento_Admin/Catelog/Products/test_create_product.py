@@ -53,20 +53,3 @@ def test_config_product(driver):
 
 
 
-# def test_logged_in_order_process(driver):
-#     logged_in = LoggedInUser(driver)
-#     logged_in.go_to_category_page()
-#     # logged_in.verify_products_available()
-#     logged_in.go_to_product_page()
-#     logged_in.add_to_cart()
-#     logged_in.go_to_cart()
-#     logged_in.go_to_shipping()
-#     time.sleep(2)
-#
-#     if logged_in.is_savedaddress_there():
-#         logged_in.add_new_address()
-#     else:
-#         logged_in.fill_the_shipping_details()
-#     logged_in.fill_the_payement()
-
-
