@@ -13,3 +13,9 @@ class Locators:
     SALES_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-sales-sales']/a/span[text()='Sales']")
     #Orders module
     ORDERS_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-sales-sales-order']/a/span[text()='Orders']")
+
+
+#Sales module
+    CUSTOMERS_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-customer-customer']/a/span[text()='Customers']")
+    #Orders module
+    ALL_CUSTOMERS_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-customer-customer-manage']/a/span[text()='All Customers']")
