@@ -70,3 +70,21 @@ class SideNavigationPage:
         )
         all_customers.click()
         print("Submodule 'all customers' clicked")
+
+
+# ---------Catelog_Price_Rule----------
+#marketing module
+    def open_marketing_menu(self):
+        marekting = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.MARKETING_MAIN_MENU)
+        )
+        marekting.click()
+        print("Main menu item 'marketing' clicked")
+
+#catelog price rule sub module
+    def open_catelog_price_rule_menu(self):
+        catelog_price_rule = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.CATELOG_PRICE_RULE_MENU)
+        )
+        catelog_price_rule.click()
+        print("Submodule 'catelog price rule' clicked")

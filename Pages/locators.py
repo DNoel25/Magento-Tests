@@ -15,7 +15,12 @@ class Locators:
     ORDERS_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-sales-sales-order']/a/span[text()='Orders']")
 
 
-#Sales module
+#Customer module
     CUSTOMERS_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-customer-customer']/a/span[text()='Customers']")
-    #Orders module
+    #all customers module
     ALL_CUSTOMERS_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-customer-customer-manage']/a/span[text()='All Customers']")
+
+#Marketing module
+    MARKETING_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-backend-marketing']/a/span[text()='Marketing']")
+    #catelog price rule module
+    CATELOG_PRICE_RULE_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-catalogrule-promo-catalog']/a/span[text()='Catalog Price Rule']")
