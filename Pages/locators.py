@@ -24,3 +24,6 @@ class Locators:
     MARKETING_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-backend-marketing']/a/span[text()='Marketing']")
     #catelog price rule module
     CATELOG_PRICE_RULE_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-catalogrule-promo-catalog']/a/span[text()='Catalog Price Rule']")
+
+    #catelog price rule module
+    CART_PRICE_RULE_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-salesrule-promo-quote']/a/span[text()='Cart Price Rules']")
