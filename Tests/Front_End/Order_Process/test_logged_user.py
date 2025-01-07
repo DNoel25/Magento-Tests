@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-from Pages.Front_End.logged_user_page import LoggedInUser
+from Pages.Front_End.Order_Process.logged_user_page import LoggedInUser
 import time
 @pytest.fixture(scope="module")
 def driver():

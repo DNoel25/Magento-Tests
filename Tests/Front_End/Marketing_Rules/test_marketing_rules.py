@@ -2,7 +2,7 @@ import time
 
 import pytest
 from selenium import webdriver
-from Pages.Front_End.Order_Process.guest_user_page import GuestUser
+from Pages.Front_End.Marketing_Rules.marketing_rules_page import MarketingRules
 from selenium.webdriver.chrome.service import Service
 
 @pytest.fixture(scope="module")
@@ -23,16 +23,17 @@ def test_toverify_home_page(driver):
     assert current_url == "https://uatnew.bonz.com/en", f"URL mismatch: {current_url}"
     print("Redirection successful. Redirected to:", current_url)
 
-def test_guest_user_flow(driver):
-    guest = GuestUser(driver)
+def test_catelog_price(driver):
+    guest = MarketingRules(driver)
     guest.redirect_to_home_page()
-    guest.go_to_category_page()
-    # guest.verify_products_available()
-    guest.go_to_product_page()
+    guest.redirect_to_product_page()
+    guest.check_catelog_price_discout()
+
+def test_cart_price_without_coupon(driver):
+    guest = MarketingRules(driver)
     guest.add_to_cart()
     guest.go_to_cart()
-    guest.go_to_shipping()
-    time.sleep(2)
-    guest.fill_the_shipping_details()
-    guest.fill_the_payement()
+    guest.check_price_without_coupon()
+
+
 

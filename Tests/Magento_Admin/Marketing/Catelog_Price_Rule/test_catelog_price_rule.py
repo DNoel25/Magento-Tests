@@ -41,7 +41,7 @@ def test_fill_mandatory(driver):
     print(" ")
     print("Filling the required fields..")
     magento = CatelogManagement(driver)
-    magento.fill_mandatory_fields("testAutomationRule", "50")
+    magento.fill_mandatory_fields("testAutomationRuleCatelog", "10")
     # magento.save_product_simple()
     time.sleep(5)
 

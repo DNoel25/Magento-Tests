@@ -34,14 +34,14 @@ def test_simple_product(driver):
     magento.nav_to_addnew_simple_product()
 
     #fill the details
-    magento.fill_mandatory_fields_simple("testAutomationSimple", "testAutomationSimple","222", "5" )
+    magento.fill_mandatory_fields_simple("testAutomationSimple", "testAutomationSimple","1000", "1000" )
     magento.save_product_simple()
     time.sleep(5)
 
 def test_config_product(driver):
     magento = CreateProducts(driver)
     magento.nav_to_addnew_config_product()
-    magento.fill_configurable_product_fields("testAutomationConfig", "testAutomationConfig", "999")
+    magento.fill_configurable_product_fields("testAutomationConfig", "testAutomationConfig", "1000")
     magento.add_configurations(
         attributes=["93", "173"],  # Replace with actual attributes
         attribute_values={

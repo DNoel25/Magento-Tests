@@ -8,7 +8,7 @@ class Locators:
     CATELOG_MAIN_MODULE = (By.XPATH, "//li[@id='menu-magento-catalog-catalog']/a/span[text()='Catalog']")
     #Products module
     PRODUCTS_MENU = (By.XPATH, "//li[@id='menu-magento-catalog-catalog']//li[@data-ui-id='menu-magento-catalog-catalog-products']/a/span[text()='Products']")
-
+    CATEGORY_MENU  =((By.XPATH, "//li[@id='menu-magento-catalog-catalog']//li[@data-ui-id='menu-magento-catalog-catalog-categories']/a/span[text()='Categories']"))
 #Sales module
     SALES_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-sales-sales']/a/span[text()='Sales']")
     #Orders module
@@ -27,3 +27,4 @@ class Locators:
 
     #catelog price rule module
     CART_PRICE_RULE_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-salesrule-promo-quote']/a/span[text()='Cart Price Rules']")
+
