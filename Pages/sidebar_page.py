@@ -53,3 +53,20 @@ class SideNavigationPage:
         )
         products.click()
         print("Submodule 'Orders' clicked")
+
+# ---------CUSTOMERS----------
+#customers module
+    def open_customers_menu(self):
+        customers_module = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.CUSTOMERS_MAIN_MENU)
+        )
+        customers_module.click()
+        print("Main menu item 'customers' clicked")
+
+#all customers sub module
+    def open_all_customers(self):
+        all_customers = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.ALL_CUSTOMERS_MENU)
+        )
+        all_customers.click()
+        print("Submodule 'all customers' clicked")
