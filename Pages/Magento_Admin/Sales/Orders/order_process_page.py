@@ -152,6 +152,11 @@ class OrderProcess:
         print("Locating the payment method section...")
         self.wait.until(EC.presence_of_element_located((By.ID, "order-billing_method")))
 
+        print("Clicking the 'Get Shipping Methods and Rates' link...")
+        get_payment_link = self.wait.until(EC.element_to_be_clickable(
+            (By.XPATH, "//a[@class='action-default']/span[text()='Get available payment methods']")))
+        get_payment_link.click()
+
         print("Checking 'Cash on Delivery' payment method...")
         cod_radio_button = self.wait.until(EC.presence_of_element_located((By.ID, "p_method_cashondelivery")))
 

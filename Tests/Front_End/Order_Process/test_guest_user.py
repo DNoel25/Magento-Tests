@@ -2,7 +2,7 @@ import time
 
 import pytest
 from selenium import webdriver
-from Pages.Front_End.guest_user_page import GuestUser
+from Pages.Front_End.Order_Process.guest_user_page import GuestUser
 from selenium.webdriver.chrome.service import Service
 
 @pytest.fixture(scope="module")

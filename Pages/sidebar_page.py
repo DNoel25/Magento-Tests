@@ -54,6 +54,16 @@ class SideNavigationPage:
         products.click()
         print("Submodule 'Orders' clicked")
 
+# categories sub module
+    def open_category(self):
+        # Wait for and click on the "products" main menu item by indexing
+        products = WebDriverWait(self.driver, 10).until(
+            # EC.element_to_be_clickable((By.XPATH, '(//i[contains(@class, "nav-icon fas fa-search")])[1]'))
+            # I pass this using the locatiors class
+            EC.element_to_be_clickable(Locators.CATEGORY_MENU)
+        )
+        products.click()
+        print("Submodule 'Category' clicked")
 # ---------CUSTOMERS----------
 #customers module
     def open_customers_menu(self):
@@ -70,3 +80,29 @@ class SideNavigationPage:
         )
         all_customers.click()
         print("Submodule 'all customers' clicked")
+
+
+# ---------Catelog_Price_Rule----------
+#marketing module
+    def open_marketing_menu(self):
+        marekting = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.MARKETING_MAIN_MENU)
+        )
+        marekting.click()
+        print("Main menu item 'marketing' clicked")
+
+#cart price rule sub module
+    def open_cart_price_rule_menu(self):
+        cart_price_rule = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.CART_PRICE_RULE_MENU)
+        )
+        cart_price_rule.click()
+        print("Submodule 'cart price rule' clicked")
+
+#catelog price rule sub module
+    def open_catelog_price_rule_menu(self):
+        cart_price_rule = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.CATELOG_PRICE_RULE_MENU)
+        )
+        cart_price_rule.click()
+        print("Submodule 'catelog price rule' clicked")
