@@ -188,7 +188,7 @@ class GridFilters:
             print(f"Screenshots saved successfully at: {screenshot_dir}")
 
         except Exception as e:
-            print(f"Error while capturing screenshots: {e}")
+            print(f"Error while capturing screenshots:  {e}")
 
     # def set_filter(self, locator, value):
     #     element = WebDriverWait(self.driver, 10).until(

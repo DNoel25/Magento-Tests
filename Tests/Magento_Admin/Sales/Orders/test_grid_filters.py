@@ -49,7 +49,7 @@ def test_purchase_date_filter(driver):
         assert magento.verify_filtered_results(start_date, end_date), "Purchase date filter validation failed!"
 
     except AssertionError as e:
-        print(f"Test failed: {e}")
+        print(f"Test failed:  {e}")
     except Exception as e:
         print(f"Unexpected error during test execution: {e}")
 
