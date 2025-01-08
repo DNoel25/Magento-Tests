@@ -15,8 +15,6 @@ def test_logged_in_user_flow(driver):
     logged_in.login_successfully("d.noel251299@gmail.com", "Welcome@123")  # Replace with test credentials
     logged_in.go_to_home_page()
 
-def test_logged_in_order_process(driver):
-    logged_in = LoggedInUser(driver)
 
 def test_redirect_to_category(driver):
     logged_in = LoggedInUser(driver)
