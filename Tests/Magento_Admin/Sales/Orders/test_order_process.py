@@ -24,7 +24,7 @@ def test_logged_in_user_flow(driver):
     magento.close_notifications()
     magento.test_home_page()
 
-def test_redirection_to_products(driver):
+def test_redirection_to_orders(driver):
     side_nav = SideNavigationPage(driver)
     side_nav.open_sales_menu()
     side_nav.open_orders()
@@ -36,7 +36,7 @@ def test_redirection_to_new_orders(driver):
 
 def test_add_product(driver):
     print(" ")
-    print("adding a product to the order..")
+    print("Adding a product to the order..")
     magento = OrderProcess(driver)
     magento.add_products("testAutomationSimple")
 
