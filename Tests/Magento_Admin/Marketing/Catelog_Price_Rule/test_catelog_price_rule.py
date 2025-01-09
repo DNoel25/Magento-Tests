@@ -44,3 +44,8 @@ def test_fill_mandatory(driver):
     magento.fill_mandatory_fields("testAutomationRuleCatelog", "10")
     # magento.save_product_simple()
     time.sleep(5)
+
+def test_save(driver):
+    magento = CatelogManagement(driver)
+    magento.click_save_btn()
+    print("Saved successfully.")
