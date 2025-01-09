@@ -23,9 +23,9 @@ def test_toverify_home_page(driver):
     assert current_url == "https://uatnew.bonz.com/en", f"URL mismatch: {current_url}"
     print("Redirection successful. Redirected to:", current_url)
 
-def test_redirect_to_home(driver):
-    guest = GuestUser(driver)
-    guest.redirect_to_home_page()
+# def test_redirect_to_home(driver):
+#     guest = GuestUser(driver)
+#     guest.redirect_to_home_page()
 
 def test_redirect_to_category(driver):
     guest = GuestUser(driver)

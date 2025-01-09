@@ -27,7 +27,7 @@ class CustomerManagement:
         )
         signin.click()
 
-    def test_home_page(self):
+    def test_dashboard_page(self):
         homepage = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, "//h1[@class='page-title' and text()='Dashboard']"))
         )

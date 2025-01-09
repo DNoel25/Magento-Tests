@@ -25,13 +25,13 @@ def test_logged_in_user_flow(driver):
     magento.close_notifications()
     magento.test_home_page()
 
-def test_redirection_to_products(driver):
+def test_redirection_to_catelog_rule(driver):
     side_nav = SideNavigationPage(driver)
     side_nav.open_marketing_menu()
     side_nav.open_catelog_price_rule_menu()
     time.sleep(2)
 
-def test_redirection_to_new_orders(driver):
+def test_redirection_to_new_catelog_rule(driver):
     magento = CatelogManagement(driver)
     magento.nav_to_new_catelog_price_rule()
     time.sleep(3)
@@ -44,24 +44,3 @@ def test_fill_mandatory(driver):
     magento.fill_mandatory_fields("testAutomationRuleCatelog", "10")
     # magento.save_product_simple()
     time.sleep(5)
-
-# def test_save_customer(driver):
-#     print(" ")
-#     print("Test the save customer button..")
-#     magento = CustomerManagement(driver)
-#     magento.click_save_btn()
-#
-
-
-#
-# def test_payment_or_shipping_method(driver):
-#     print(" ")
-#     print("Selecting the payment method and shipping method..")
-#     magento = CustomerManagement(driver)
-#     magento.selecting_payment_or_shipping()
-#
-# def test_submit_order(driver):
-#     print(" ")
-#     print("Submitting the order..")
-#     magento = CustomerManagement(driver)
-#     magento.submit_order()
