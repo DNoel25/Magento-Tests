@@ -28,3 +28,7 @@ class Locators:
     #catelog price rule module
     CART_PRICE_RULE_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-salesrule-promo-quote']/a/span[text()='Cart Price Rules']")
 
+#Content module
+    CONTENT_MAIN_MENU = (By.XPATH, "//li[@id='menu-magento-backend-content']/a/span[text()='Content']")
+    #all customers module
+    CMS_PAGES_MENU = (By.XPATH, "//li[@data-ui-id='menu-magento-cms-cms-page']/a/span[text()='Pages']")
