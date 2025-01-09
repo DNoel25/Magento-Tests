@@ -25,15 +25,15 @@ def test_logged_in_user_flow(driver):
     print("Successfully navigate to the Dashboard ")
     #close  the notifications if appears in the Dashboard
     magento.close_notifications()
-    magento.test_home_page()
+    magento.test_dashboard_page()
 
-def test_redirection_to_products(driver):
+def test_redirection_to_customers(driver):
     side_nav = SideNavigationPage(driver)
     side_nav.open_customers_menu()
     side_nav.open_all_customers()
     time.sleep(2)
 
-def test_redirection_to_new_orders(driver):
+def test_redirection_to_new_customers(driver):
     magento = CustomerManagement(driver)
     magento.nav_to_new_customer()
     time.sleep(3)
