@@ -41,35 +41,19 @@ def test_add_new(driver):
     print(" ")
     print("Filling the required fields..")
     magento = CartPriceRuleManagement(driver)
+
+    #with coupon
     magento.fill_mandatory_fields("testAutomationCartRuleWithCoupon", "20", "TestAutomationSimple", True, coupon_name="SpecialCoupon")
     magento.click_save_btn()
     print("Successfully created the cart price rule WITH coupon")
     time.sleep(5)
     magento.nav_to_new_cart_price_rule()
     time.sleep(2)
+
+    #without coupon
     magento.fill_mandatory_fields("testAutomationCartRuleWithoutCoupon", "40", "TestAutomationSimple", False)
     magento.click_save_btn()
     print("Successfully created the cart price rule WITHOUT coupon")
     time.sleep(2)
 
 
-# def test_save_customer(driver):
-#     print(" ")
-#     print("Test the save customer button..")
-#     magento = CartPriceRuleManagement(driver)
-#     magento.click_save_btn()
-#
-
-
-#
-# def test_payment_or_shipping_method(driver):
-#     print(" ")
-#     print("Selecting the payment method and shipping method..")
-#     magento = CustomerManagement(driver)
-#     magento.selecting_payment_or_shipping()
-#
-# def test_submit_order(driver):
-#     print(" ")
-#     print("Submitting the order..")
-#     magento = CustomerManagement(driver)
-#     magento.submit_order()
