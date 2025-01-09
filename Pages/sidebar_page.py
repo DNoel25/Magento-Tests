@@ -106,3 +106,21 @@ class SideNavigationPage:
         )
         cart_price_rule.click()
         print("Submodule 'catelog price rule' clicked")
+
+#---------Content----------
+
+# marketing module
+    def open_content_menu(self):
+        content = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.CONTENT_MAIN_MENU)
+        )
+        content.click()
+        print("Main menu item 'content' clicked")
+
+#catelog price rule sub module
+    def open_cmspages_menu(self):
+        cms_pages = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.CMS_PAGES_MENU)
+        )
+        cms_pages.click()
+        print("Submodule 'pages (cms)' clicked")
